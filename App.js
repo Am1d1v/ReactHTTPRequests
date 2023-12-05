@@ -1,10 +1,33 @@
 import './App.css';
+import JokeList from './components/JokeList';
+
+
+
 
 function App() {
+
+  const dummyJokes = [
+    {
+      type: "general",
+      setup: "Setup",
+      punchline: "Punchline"
+    },
+    {
+      type: "general",
+      setup: "Setup",
+      punchline: "Punchline"
+    }
+  ];
+
   return (
-    <div className="App">
-     <h1>HttpRequests</h1>
-    </div>
+    <>
+    <section>
+      <button>Fetch Jokes</button>
+    </section>
+    <section className='jokes'>
+      <JokeList jokes={dummyJokes}/>
+    </section>
+    </>
   );
 }
 
