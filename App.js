@@ -1,31 +1,34 @@
+import { useState } from 'react';
 import './App.css';
 import JokeList from './components/JokeList';
 
 
-
-
 function App() {
 
-  const dummyJokes = [
-    {
-      type: "general",
-      setup: "Setup",
-      punchline: "Punchline"
-    },
-    {
-      type: "general",
-      setup: "Setup",
-      punchline: "Punchline"
-    }
-  ];
+
+  const [jokes, setJokes] = useState([]);
+
+
+  // Fetch Jokes
+  function fetchJokesHandler(){
+    fetch('https://official-joke-api.appspot.com/random_ten')
+    .then(response => response.json())
+    .then(data => {
+      setJokes(data)
+    })
+  }
+  
+
+
+  console.log(jokes);
 
   return (
     <>
     <section>
-      <button>Fetch Jokes</button>
+      <button onClick={fetchJokesHandler}>Fetch Jokes</button>
     </section>
     <section className='jokes'>
-      <JokeList jokes={dummyJokes}/>
+      <JokeList jokes={jokes}/>
     </section>
     </>
   );
