@@ -5,22 +5,17 @@ import JokeList from './components/JokeList';
 
 function App() {
 
-
+  // Jokes state
   const [jokes, setJokes] = useState([]);
 
 
   // Fetch Jokes
-  function fetchJokesHandler(){
-    fetch('https://official-joke-api.appspot.com/random_ten')
-    .then(response => response.json())
-    .then(data => {
-      setJokes(data)
-    })
+  async function fetchJokesHandler(){
+    const responsed =  await fetch('https://official-joke-api.appspot.com/random_ten')
+    const jokesData = await responsed.json();
+    setJokes(jokesData);
   }
-  
 
-
-  console.log(jokes);
 
   return (
     <>

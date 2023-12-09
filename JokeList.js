@@ -4,7 +4,7 @@ import styles from "./JokeList.module.css";
 
 const JokeList = (props) => {
 
-  const {type, setup, punchline, jokes} = props;
+  const {jokes} = props;
 
   return (
     <ul className={styles["joke-list"]}>
