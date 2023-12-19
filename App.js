@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback} from 'react';
 import './App.css';
 import JokeList from './components/JokeList';
 
@@ -10,13 +10,14 @@ function App() {
   const [isLoading, setIsLoading] = useState()
   const [error, setError] = useState(null);
 
+
   // Fetch Jokes
-  async function fetchJokesHandler(){
+  const  fetchJokesHandler =  useCallback(async() => {
     setIsLoading(true)
     setError(null);
     // Catch error
     try {
-      const responsed =  await fetch('https://official-joke-api.appspot.com/random_te')
+      const responsed =  await fetch('https://official-joke-api.appspot.com/random_ten')
       // If responsed data is false throw error
       if(!responsed.ok){
         throw new Error('Something went wrong');
@@ -27,8 +28,12 @@ function App() {
       setError(e.message)
     }
     setIsLoading(false)
-  }
+  }, [])
 
+  // UseEffect for fetch joke
+   useEffect(() => {
+    fetchJokesHandler();
+  }, [fetchJokesHandler])  
 
   return (
     <>
@@ -36,7 +41,7 @@ function App() {
       <button onClick={fetchJokesHandler}>Fetch Jokes</button>
     </section>
     <section className='jokes'>
-      {isLoading && jokes.length === 0 ? <h1>Loading...</h1> : <JokeList jokes={jokes}/>}
+      {isLoading && jokes.length === 0 && !error ? <h1>Loading...</h1> : <JokeList jokes={jokes}/>}
       {!isLoading && error && <p>{error}</p>}
     </section>
     </>
