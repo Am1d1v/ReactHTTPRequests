@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback} from 'react';
 import './App.css';
 import JokeList from './components/JokeList';
+import AddJoke from './components/AddJoke';
 
 
 function App() {
@@ -35,8 +36,16 @@ function App() {
     fetchJokesHandler();
   }, [fetchJokesHandler])  
 
+  //Add New Joke Handler
+  function addNewJokeHandler(joke){
+    console.log(joke);
+  }
+
   return (
     <>
+    <section>
+      <AddJoke onNewJoke={addNewJokeHandler} />
+    </section>
     <section>
       <button onClick={fetchJokesHandler}>Fetch Jokes</button>
     </section>
