@@ -18,7 +18,8 @@ function App() {
     setError(null);
     // Catch error
     try {
-      const responsed =  await fetch('https://official-joke-api.appspot.com/random_ten')
+      //Add firebase 
+      const responsed =  await fetch('https://reacthttprequestsjokes-default-rtdb.firebaseio.com/jokes.json')
       // If responsed data is false throw error
       if(!responsed.ok){
         throw new Error('Something went wrong');
@@ -37,8 +38,18 @@ function App() {
   }, [fetchJokesHandler])  
 
   //Add New Joke Handler
-  function addNewJokeHandler(joke){
-    console.log(joke);
+  async function addNewJokeHandler(joke){
+    // Firebase fetch 
+    const response =  await fetch("https://reacthttprequestsjokes-default-rtdb.firebaseio.com/", {
+      method: 'POST',
+      body: JSON.stringify(joke),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data = await response.json();
+    console.log(data);
   }
 
   return (
