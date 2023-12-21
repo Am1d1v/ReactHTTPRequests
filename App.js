@@ -25,7 +25,23 @@ function App() {
         throw new Error('Something went wrong');
       }
       const jokesData = await responsed.json();
-      setJokes(jokesData);
+      console.log(jokesData);
+      
+      // Load new Joke
+      const loadedJokes = [];
+
+      for( const key in jokesData){
+        loadedJokes.push({
+          id: key,
+          type: jokesData[key].type,
+          setup: jokesData[key].setup,
+          punchline: jokesData[key].punchline
+        })
+      }
+
+      console.log(loadedJokes);
+
+      setJokes(loadedJokes);
     } catch (e) {
       setError(e.message)
     }
@@ -40,7 +56,7 @@ function App() {
   //Add New Joke Handler
   async function addNewJokeHandler(joke){
     // Firebase fetch 
-    const response =  await fetch("https://reacthttprequestsjokes-default-rtdb.firebaseio.com/", {
+    const response =  await fetch("https://reacthttprequestsjokes-default-rtdb.firebaseio.com/jokes.json", {
       method: 'POST',
       body: JSON.stringify(joke),
       headers: {
@@ -48,8 +64,6 @@ function App() {
       }
     })
 
-    const data = await response.json();
-    console.log(data);
   }
 
   return (
@@ -61,7 +75,7 @@ function App() {
       <button onClick={fetchJokesHandler}>Fetch Jokes</button>
     </section>
     <section className='jokes'>
-      {isLoading && jokes.length === 0 && !error ? <h1>Loading...</h1> : <JokeList jokes={jokes}/>}
+      {isLoading && jokes.length === 0 && jokes !== null && jokes !== undefined && !error ? <h1>Loading...</h1> : <JokeList jokes={jokes}/>}
       {!isLoading && error && <p>{error}</p>}
     </section>
     </>

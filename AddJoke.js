@@ -23,18 +23,18 @@ function AddJoke(props){
     }
 
     return(
-        <form onSubmit={submitHandler} className={styles["control"]}>
-            <div>
+        <form onSubmit={submitHandler}>
+            <div className={styles.control}>
                 <label htmlFor="type">Type</label>
                 <input type="text" id="type" ref={typeRef} />
             </div>
-            <div>
+            <div className={styles.control}>
                 <label htmlFor="setup">Setup</label>
-                <textarea type="text" id="setup" rows={5} ref={setupRef}></textarea>
+                <textarea type="text" id="setup" rows={5} ref={setupRef} />
             </div>
-            <div>
+            <div className={styles.control}>
                 <label htmlFor="punchline">Punchline</label>
-                <textarea type="text" id="punchline" rows={5} ref={punchlineRef}></textarea>
+                <textarea type="text" id="punchline" rows={5} ref={punchlineRef} />
             </div>
             <button>Add Joke</button>
         </form>

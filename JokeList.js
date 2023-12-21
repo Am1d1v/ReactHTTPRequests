@@ -8,7 +8,7 @@ const JokeList = (props) => {
 
   return (
     <ul className={styles["joke-list"]}>
-      {jokes.map((joke, index) => (
+      {jokes.map((joke, index) => ( 
         <Joke
           key={index}
           type={joke.type}
